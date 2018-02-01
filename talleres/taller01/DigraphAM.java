@@ -3,12 +3,12 @@ import java.util.*;
 /**
  * Implementacion de un grafo dirigido usando matrices de adyacencia
  *
- * @author Mauricio Toro, Mateo Agudelo, <su nombre>
+ * @author Mauricio Toro, Mateo Agudelo, Manuela Valencia, Laura Sánchez
  */
 public class DigraphAM extends Digraph {
-    // complete...
-
+    
     int [][] matrizG;
+    
     public DigraphAM(int size) {
         super(size);
         matrizG= new int [size][size];
