@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class DigraphAL extends Digraph {
         // complete
-        private ArrayList lista;
+        private ArrayList <LinkedList<Pair<Integer,Integer>>> lista;
 
         public DigraphAL(int size) {
                 super(size);
@@ -21,7 +21,7 @@ public class DigraphAL extends Digraph {
         public void addArc(int source, int destination, int weight) {
                 // complete...
                 Pair <Integer, Integer> pair = new Pair (destination, weight);
-                lista.add(source, pair);
+                lista.get(source).add(pair);
                 // recuerde: grafo dirigido!
         }
 
@@ -30,13 +30,34 @@ public class DigraphAL extends Digraph {
                 // recuerde: null si no hay!
                 ArrayList Successors = new ArrayList<Integer>();
                 LinkedList<Pair<Integer,Integer>> l_inside =lista.get(vertex);
+                for(int i=0; i<l_inside.size(); i++){
+                Pair var = l_inside.get(i); 
+                if(var!=null){
+                int miaguela = (int)var.first;
+                Successors.add(miaguela);
+                }else
+                break;
+                
+                }
+                if (Successors.size()==0) return null;
+                else
+                Collections.sort(Successors);
                 
                 return Successors;
         }
 
         public int getWeight(int source, int destination) {
                 // complete...
-                return 0;
+                LinkedList<Pair<Integer,Integer>> l_inside =lista.get(source);
+                Pair var2=null;
+                for(int i=0; i<l_inside.size(); i++){
+                 var2= l_inside.get(i);
+                if ((int)var2.first==destination)
+                break;
+            
+            }
+              return (int)var2.second;
+               
         }
 
 }
