@@ -7,19 +7,20 @@ import java.util.*;
  */
 public class DigraphAL extends Digraph {
         // complete
-        LinkedList lista = new LinkedList <LinkedList>();
+        private ArrayList lista;
 
         public DigraphAL(int size) {
                 super(size);
+                lista = new ArrayList <LinkedList<Pair<Integer,Integer>>>();
                 for(int i=0; i<size; i++){
-                LinkedList lista2 = new LinkedList <Pair>();
+                LinkedList <Pair<Integer,Integer>> lista2 = new LinkedList <Pair<Integer, Integer>>();
                 lista.add(lista2);
                 }
         }
 
         public void addArc(int source, int destination, int weight) {
                 // complete...
-                Pair pair = new Pair(destination, weight);
+                Pair <Integer, Integer> pair = new Pair (destination, weight);
                 lista.add(source, pair);
                 // recuerde: grafo dirigido!
         }
@@ -28,7 +29,7 @@ public class DigraphAL extends Digraph {
                 // complete...
                 // recuerde: null si no hay!
                 ArrayList Successors = new ArrayList<Integer>();
-                LinkedList l_inside =lista.get(vertex);
+                LinkedList<Pair<Integer,Integer>> l_inside =lista.get(vertex);
                 
                 return Successors;
         }
