@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class DigraphAM extends Digraph {
     
-    int [][] matrizG;
+   private int [][] matrizG;
     
     public DigraphAM(int size) {
         super(size);
