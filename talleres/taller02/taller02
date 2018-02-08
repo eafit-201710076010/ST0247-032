@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author Manuela Valencia, Laura Sanchez
  */
 public class Taller2 {
-      ArrayList<String> algo;
+ private static    ArrayList<String> algo;
 
 	public static ArrayList<String> combinations(String s) {
 	    ArrayList<String> algo3= new ArrayList();
@@ -59,24 +59,45 @@ public class Taller2 {
 		System.out.println();
 	}
 
-	public  boolean esValido(int[] tablero) {
-	        
-	          
-	}
+	public static boolean esValido(int[] tablero) {
+	        int i=tablero[tablero.length-1];
+	        	           
+	           for (int j = 0; j < tablero.length-1; j++) {
+            if (tablero [j] == tablero [i])             return false;   // same column
+           /* if ((tablero [i] - tablero [a]) == (a - i)) return false;   // same major diagonal
+            if ((tablero [a] - tablero [i]) == (a - i)) return false;   // same minor diagonal*/
+            else if (i+tablero[i] == j + tablero[j]) {
+			return false;
+		}
+		else if (tablero[i] - i == tablero[j] - j) {
+			return false;
+		
+        }}
+        return true;
+}                     
+	
 
 	public static int queens(int n) {
 	     ArrayList<String> algo= new ArrayList();
              int [] arreglo= new int[n];
              String a="";
+             int result=0;
              for(int i=0;i<n;i++){
-	      a=i + "";
+	      a=a+i + "";
 	   }
 	   permutations("",a,algo);
 	   
 	   for(int j=0;j<algo.size();j++){
-	        int numero= Integer.parseInt(algo.get(j));
-	        for(int h=0;h<numero.length){}	   
-	           return 0;
-	}
-
+	        String numero= algo.get(j);
+	        for(int h=0;h<numero.length();h++){
+	           arreglo[h]=Integer.parseInt(numero.charAt(h)+"");
+	           }	   
+	           if(esValido(arreglo)==true){
+	           result=result+1;
+	           imprimirTablero(arreglo);
+	           };
+	         
+	}   
+       return result; 
+}
 }
