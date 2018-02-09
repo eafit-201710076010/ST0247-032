@@ -59,23 +59,15 @@ public class Taller2 {
 		System.out.println();
 	}
 
-	public static boolean esValido(int[] tablero) {
-	        int i=tablero[tablero.length-1];
-	        	           
-	           for (int j = 0; j < tablero.length-1; j++) {
-            if (tablero [j] == tablero [i])             return false;   // same column
-           /* if ((tablero [i] - tablero [a]) == (a - i)) return false;   // same major diagonal
-            if ((tablero [a] - tablero [i]) == (a - i)) return false;   // same minor diagonal*/
-            else if (i+tablero[i] == j + tablero[j]) {
-			return false;
-		}
-		else if (tablero[i] - i == tablero[j] - j) {
-			return false;
-		
-        }}
+	    //tomado de Soluciones taller4 (Eafit interactiva, autor desconocido) 
+    public static boolean esValido(int[] tablero) {
+        for(int i = 0; i < tablero.length; i++)
+            for(int j = i+1; j < tablero.length; j++)
+                if (tablero[i] == tablero[j] || Math.abs(tablero[i] - tablero[j]) == Math.abs(i - j))
+                    return false; 
         return true;
-}                     
-	
+
+    }    
 
 	public static int queens(int n) {
 	     ArrayList<String> algo= new ArrayList();
