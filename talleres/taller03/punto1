@@ -1,30 +1,25 @@
 
+
 /**
- * Write a description of class Miaguela here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * 
+ * @author Manuela Valencia, Laura Sánchez 
+ 
  
 /**
  *
- * @author ACHCHUTHAN
+
  */
-public class Queens {
+public class Queens {    
 
-    int[] x;
-
-     public Queens(int N) {
-        x = new int[N];
-    }
-
-    public boolean canPlaceQueen(int r, int c) {
+    public static boolean canPlaceQueen(int r, int c,int []tablero) {
         /**
          * Returns TRUE if a queen can be placed in row r and column c.
          * Otherwise it returns FALSE. x[] is a global array whose first (r-1)
          * values have been set.
          */
         for (int i = 0; i < r; i++) {
-            if (x[i] == c || (i - r) == (x[i] - c) ||(i - r) == (c - x[i])) 
+            if (tablero[i] == c || (i - r) == (tablero[i] - c) ||(i - r) == (c - tablero[i])) 
             {
                 return false;
             }
@@ -32,7 +27,7 @@ public class Queens {
         return true;
     }
 
-    public void printQueens(int[] x) {
+    public static void printQueens(int[] x) {
         int N = x.length;
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
@@ -46,34 +41,32 @@ public class Queens {
         }
         System.out.println();
     }
-    static int contador=0;
-    public int placeNqueens(int r, int n) {
+      public static int contador=0;  
+    public static int placeNqueens(int r, int n,int [] tablero) {
         /**
          * Using backtracking this method prints all possible placements of n
          * queens on an n x n chessboard so that they are non-attacking.
          */
+        
         for (int c = 0; c < n; c++) {
-            if (canPlaceQueen(r, c)) {
-                x[r] = c;
+            if (canPlaceQueen(r, c,tablero)) {
+                tablero[r] = c;
                 if (r == n - 1) {
                     contador++;
                 } else {
-                    placeNqueens(r + 1, n);
+                    placeNqueens(r + 1, n,tablero);
                 }
             }
         }
         return contador;
     }
+    
 
-    public int callplaceNqueens () {
-        placeNqueens(0, x.length);
+    public static int callplaceNqueens (int n) {
+       int contador=0;
+         int[] tablero= new int[n];
+       contador=contador + placeNqueens(0, tablero.length,tablero);
         return contador;
     }
 
-    public static void main(String args[]) {
-        Queens Q = new Queens(8);
-        Q.callplaceNqueens();
-    System.out.println(contador);
-    }
 }
-
