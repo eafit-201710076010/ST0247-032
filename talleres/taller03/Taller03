@@ -6,9 +6,10 @@
  * @author Manuela Valencia, Laura Sánchez 
  
 public class Taller03 {    
+//basado en http://codegists.com/snippet/java/nqueensjava_ajayramesh23_java
 
-    public static boolean canPlaceQueen(int r, int c,int []tablero) {
-  
+  private static boolean puedoPonerReina(int r, int c, int[] tablero) {
+        // complete...
         for (int i = 0; i < r; i++) {
             if (tablero[i] == c || (i - r) == (tablero[i] - c) ||(i - r) == (c - tablero[i])) 
             {
@@ -17,44 +18,45 @@ public class Taller03 {
         }
         return true;
     }
+    public static int contador=0;  
 
-    public static void printQueens(int[] x) {
-        int N = x.length;
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                if (x[i] == j) {
-                    System.out.print("Q ");
-                } else {
-                    System.out.print("* ");
-                }
-            }
-            System.out.println();
-        }
-        System.out.println();
+    public static int nReinas(int n) {
+        int contador=0;
+        int[] tablero= new int[n];
+        contador=contador + nReinas(0, tablero.length,tablero);
+        return contador;
     }
-      public static int contador=0;  
-    public static int placeNqueens(int r, int n,int [] tablero) {
-        
+
+    private static int nReinas(int r, int n, int[] tablero) {
+
         for (int c = 0; c < n; c++) {
-            if (canPlaceQueen(r, c,tablero)) {
+            if (puedoPonerReina(r, c,tablero)) {
                 tablero[r] = c;
                 if (r == n - 1) {
                     contador++;
                 } else {
-                    placeNqueens(r + 1, n,tablero);
+                    nReinas(r + 1, n,tablero);
                 }
             }
         }
         return contador;
     }
-    
 
-    public static int callplaceNqueens (int n) {
-       int contador=0;
-         int[] tablero= new int[n];
-       contador=contador + placeNqueens(0, tablero.length,tablero);
-        return contador;
+    public static void imprimirTablero(int[] tablero) {
+        int n = tablero.length;
+        System.out.print("    ");
+        for (int i = 0; i < n; ++i)
+            System.out.print(i + " ");
+        System.out.println("\n");
+        for (int i = 0; i < n; ++i) {
+            System.out.print(i + "   ");
+            for (int j = 0; j < n; ++j)
+                System.out.print((tablero[i] == j ? "Q" : "#") + " ");
+            System.out.println();
+        }
+        System.out.println();
     }
+
     
     public static ArrayList<Integer> camino(Digraph g, int inicio, int fin) {
         ArrayList <Integer>camino=new ArrayList<Integer>();
