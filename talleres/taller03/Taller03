@@ -5,19 +5,10 @@
  * 
  * @author Manuela Valencia, Laura Sánchez 
  
- 
-/**
- *
-
- */
-public class Queens {    
+public class Taller03 {    
 
     public static boolean canPlaceQueen(int r, int c,int []tablero) {
-        /**
-         * Returns TRUE if a queen can be placed in row r and column c.
-         * Otherwise it returns FALSE. x[] is a global array whose first (r-1)
-         * values have been set.
-         */
+  
         for (int i = 0; i < r; i++) {
             if (tablero[i] == c || (i - r) == (tablero[i] - c) ||(i - r) == (c - tablero[i])) 
             {
@@ -43,10 +34,6 @@ public class Queens {
     }
       public static int contador=0;  
     public static int placeNqueens(int r, int n,int [] tablero) {
-        /**
-         * Using backtracking this method prints all possible placements of n
-         * queens on an n x n chessboard so that they are non-attacking.
-         */
         
         for (int c = 0; c < n; c++) {
             if (canPlaceQueen(r, c,tablero)) {
@@ -67,6 +54,42 @@ public class Queens {
          int[] tablero= new int[n];
        contador=contador + placeNqueens(0, tablero.length,tablero);
         return contador;
+    }
+    
+    public static ArrayList<Integer> camino(Digraph g, int inicio, int fin) {
+        ArrayList <Integer>camino=new ArrayList<Integer>();
+        boolean pasos[]= new boolean[g.size()];
+        dfs (g, inicio, fin, pasos, camino);
+        return camino;
+    }
+
+    // recomendacion
+    private static boolean dfs(Digraph g, int nodo, int objetivo, boolean[] visitados, ArrayList<Integer> list) {
+        ArrayList<Integer> successors=g.getSuccessors(nodo);
+
+        if (nodo==objetivo){
+            return true;
+        }
+        else{
+
+            for(int i=0; i<successors.size(); i++){
+                    visitados[successors.get(i)]=true;
+                    list.add(nodo);
+                    dfs(g,successors.get(i),objetivo, visitados, list);
+                }   
+
+        }
+        return false;
+    }
+
+    public static void main (String [] args){
+        DigraphAM dg = new DigraphAM(7);
+        dg.addArc(0, 1, 5);
+        dg.addArc(1, 4, 3);
+        dg.addArc(0, 4, 9);
+        dg.addArc(3, 6, 7);
+        Taller3.camino(dg, 0, 6);
+
     }
 
 }
