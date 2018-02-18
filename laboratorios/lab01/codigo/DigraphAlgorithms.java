@@ -16,7 +16,20 @@ public class DigraphAlgorithms
         }
         return y;
      }
-  
+  static int MaxSuccessors(Diraph dg){
+        int valor=0;
+        int select=-1;
+        for(int i=0;i<dg.size;i++){
+            ArrayList Successors = new ArrayList<Integer>();
+            Successors=dg.getSuccessors(i);
+            if(Successors.size()>valor){
+               select=i;
+               valor=Successors.size();
+            }
+            }
+            return select;
+    }
+
     
   static int [] dijsktra(Digraph dg, int source)
   {
@@ -104,8 +117,9 @@ public class DigraphAlgorithms
      dgam.addArc(4,3,9);
      
      System.out.println(getPath(dijsktra(dgam,0),0,3)); 
-
+     System.out.println(MaxSuccessors(dgam));   
+         System.out.println(MaxSuccessors(dgal));   
      DigraphAlgorithms.dibujarGrafo(dgal);
-     
+  
  }
 }
