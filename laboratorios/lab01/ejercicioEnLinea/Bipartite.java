@@ -8,20 +8,16 @@ class Bipartite
         String a= "";
          Scanner s = new Scanner (System.in); 
         int matriz [] [];
-        System.out.println("Ingrese nro de vertices");
         V = s.nextInt();
         while(V!=0){            
-        System.out.println("Ingrese nro de arcos");  
          s = new Scanner (System.in);      
-        int arista=s.nextInt();                           
-       System.out.println("Ingrese relaion");   
+        int arista=s.nextInt();                             
         s = new Scanner (System.in);   
         String conexiones = s.nextLine ();  
         matriz= new int [V] [V];   
          
         while(conexiones.length()>1){
             matriz[(Integer.parseInt(conexiones.substring(0,1)))][(Integer.parseInt(conexiones.substring(2)))]=1; // c + n*m
-             System.out.println("Ingrese relacion"); 
             conexiones = s.nextLine ();   
         }
         if(isBipartite(matriz,0))   
