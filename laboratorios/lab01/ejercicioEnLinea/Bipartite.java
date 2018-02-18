@@ -25,7 +25,8 @@ class Bipartite
             conexiones = s.nextLine ();   
         }
         if(isBipartite(matriz,0))   
-        a=a + "BICOLORABLE \n";else  
+        a=a + "BICOLORABLE \n";
+           else  
         a=a + "NOT BICOLORABLE \n"; 
         V=Integer.parseInt(conexiones); 
     }
