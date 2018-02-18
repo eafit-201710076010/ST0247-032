@@ -30,7 +30,31 @@ public class DigraphAlgorithms
             return select;
     }
 
-    
+    public static void leerArchivo(){
+    DigraphAL grafo = new DigraphAL(645946);
+    // TreeMap<Integer,Integer> Nombres = new TreeMap<Integer,Integer>();
+      try{ 
+
+            File archivo = new File ("medellin_colombia-grande.txt");
+             FileReader fr = new FileReader (archivo);
+            BufferedReader br = new BufferedReader(fr);
+            int i=0;
+                     String linea=br.readLine();
+              linea=br.readLine();
+              
+            String partir []= linea.split(" ");
+            while(linea!=null){
+               // Nombres.put(Integer.parseInt(partir[0]),);
+            grafo.addArc(i,Integer.parseInt(partir[0]),Integer.parseInt(partir[1]));            
+            linea=br.readLine();
+            partir=linea.split(" ");
+            i++;
+        }
+    }catch(Exception e){
+    System.out.println(e);
+    }
+     dibujarGrafo(grafo);
+}
   static int [] dijsktra(Digraph dg, int source)
   {
           final int [] dist = new int [dg.size()];  // shortest known distance from "s"
