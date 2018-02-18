@@ -1,4 +1,7 @@
-	class Bipartite
+
+import java.util.*;
+
+class Bipartite
 {
    static int V=-1;    
     public static void recibir(){
@@ -27,7 +30,7 @@
         V=Integer.parseInt(conexiones); 
     }
     System.out.println(a); 
-} O(m*n)
+} //O(m*n)
      
     static boolean isBipartite(int G[][],int src)
     {
