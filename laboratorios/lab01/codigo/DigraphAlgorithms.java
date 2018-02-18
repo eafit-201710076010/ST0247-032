@@ -18,7 +18,7 @@ public class DigraphAlgorithms
      }
   
     
-  static int [] dijsktra(Graph dg, int source)
+  static int [] dijsktra(Digraph dg, int source)
   {
           final int [] dist = new int [dg.size()];  // shortest known distance from "s"
          final int [] pred = new int [dg.size()];  // preceeding node in path
@@ -62,7 +62,7 @@ public class DigraphAlgorithms
  
  // Código para dibujar el grafo en GraphViz
  // Recomiendo www.webgraphviz.com/
-     public static void dibujarGrafo(Graph g)
+     public static void dibujarGrafo(Digraph g)
      {
         System.out.println("digraph Grafo {");
         System.out.println("node [color=cyan, style=filled];");
