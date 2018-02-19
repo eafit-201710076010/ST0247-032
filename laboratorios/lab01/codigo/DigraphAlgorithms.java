@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.io.*;
 /**
  * This class contains algorithms for digraphs
  * Adapted from: http://cs.fit.edu/~ryan/java/programs/graph/Dijkstra-java.html
@@ -32,6 +33,7 @@ public class DigraphAlgorithms
 
     public static void leerArchivo(){
     DigraphAL grafo = new DigraphAL(645946);
+    //DigraphAM grafo = new DigraphAM(645946);en caso de que desee con matriz
     // TreeMap<Integer,Integer> Nombres = new TreeMap<Integer,Integer>();
       try{ 
 
