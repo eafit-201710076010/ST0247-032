@@ -29,14 +29,13 @@ public class Taller4 {
 	private static void dfs(Digraph g, int v, int[] costo) {
 		
 	}*/
-	public static ArrayList<Integer> camino(Digraph g, int inicio, int fin) {
-        ArrayList <Integer>camino=new ArrayList<Integer>();
-        boolean pasos[]= new boolean[g.size()];
-        dfs (g, inicio, fin, pasos, camino);
-        return camino;
+	
+     //HAY CAMINO ENTRE DOS NODOS DFS
+    public static boolean hayCaminoDfs(Digraph g,int nodo, int objetivo){
+         boolean pasos[]= new boolean[g.size()];
+         ArrayList <Integer>camino=new ArrayList<Integer>();
+         return dfs(g,nodo, objetivo,pasos,camino);
     }
-
-    // recomendacion
     private static boolean dfs(Digraph g, int nodo, int objetivo, boolean[] visitados, ArrayList<Integer> list) {
         ArrayList<Integer> successors=g.getSuccessors(nodo);
 
@@ -54,7 +53,37 @@ public class Taller4 {
         }
         return false;
     }
-        
+    //CAMINO ENTRE DOS NODOS BFS
+        public static boolean hayCaminoBfs(Digraph g,int nodo, int objetivo){
+         boolean pasos[]= new boolean[g.size()];
+         ArrayList <Integer>camino=new ArrayList<Integer>();
+         return bfs(g,nodo, objetivo,pasos,camino);
+    }
+    private static boolean bfs(Digraph g, int nodo, int objetivo, boolean[] visitados, ArrayList<Integer> list) {
+         Queue <Integer> q= new LinkedList<Integer>();
+                       q.add(nodo);
+                       list.add(nodo);
+          while(!q.isEmpty()){
+                          int actual = q.poll();
+              if(actual==objetivo)
+              return true;
+                               visitados[actual] = true; 
+                            ArrayList<Integer>    sucesores = g.getSuccessors(actual);
+                if (sucesores != null){
+                   for(Integer sucesor: sucesores){
+                  if (!visitados[sucesor]) {// vi[sucesor] == false
+                  q.add(sucesor);
+                   list.add(sucesor);}
+                }
+                
+            } 
+                            
+                            }
+                            
+               return false;         
+    }
+   
+    //RECORRIDO DFS      
         
            public static ArrayList<Integer> dfsRetornador(Digraph g, int v){
           boolean[] vi = new boolean[g.size()];
@@ -73,31 +102,35 @@ public class Taller4 {
               }}
               return;
         }
+        
+        //RECORRIDO BFS
          public static ArrayList<Integer> bfsRetornador(Digraph g, int v){
           boolean[] vi = new boolean[g.size()];
            ArrayList<Integer> respuesta = new ArrayList<Integer>();
-            bfsRetornador(g, v, respuesta, vi);
+           bfsRetornador(g, v, respuesta, vi);
           return respuesta;
         }     
       private static void bfsRetornador(Digraph g, int v,ArrayList<Integer> l, boolean[] vi){
-                            
-               Queue <Integer> q= new LinkedList<Integer>();
+                Queue <Integer> q= new LinkedList<Integer>();
                        q.add(v);
+                       l.add(v);
               while(!q.isEmpty()){
-                              int actual = q.poll();
+                          int actual = q.poll();
                                vi[actual] = true; 
-                              ArrayList<Integer> sucesores = g.getSuccessors(actual);
+                            ArrayList<Integer>    sucesores = g.getSuccessors(actual);
                 if (sucesores != null){
                    for(Integer sucesor: sucesores){
-                  if (!vi[sucesor]) // vi[sucesor] == false
+                  if (!vi[sucesor]) {// vi[sucesor] == false
                   q.add(sucesor);
-                    
+                   l.add(sucesor);}
                 }
-            }
+                
+            } 
                             
                             }
-                          
-              return;
+                            
+                     
+             
         }	
         public static void main(String [] args){
                 DigraphAL g = new DigraphAL(4);
@@ -105,7 +138,7 @@ public class Taller4 {
                  g.addArc(1,3,1);
                    g.addArc(0,2,1);
                     g.addArc(3,0,1);
-                System.out.println(bfsRetornador(g,0));
+                System.out.println(hayCaminoBfs(g,0,3));
             }
        
 }
