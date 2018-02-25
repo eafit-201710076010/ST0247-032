@@ -56,7 +56,7 @@ public class TestQueens
     }
     
         /**
-     * Test método esValido
+     * Test método queens
      */
     @Test
     public void testQueens(){
