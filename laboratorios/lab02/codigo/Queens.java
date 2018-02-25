@@ -1,0 +1,85 @@
+import java.util.ArrayList;
+
+/**
+ * Clase en la cual se implementan los metodos del Taller de Clase #2
+ * 
+ * @author Manuela Valencia, Laura Sanchez
+ */
+public class Queens {
+    private static    ArrayList<String> algo;
+
+    public static ArrayList<String> permutations(String s) {
+        ArrayList<String> algo2= new ArrayList();
+        permutations("",s,algo2);
+        return algo2;
+    }
+
+    // recomendacion
+    private static void permutations(String pre, String pos, ArrayList<String> list) {
+        if(pos.length()==0){
+            list.add(pre);
+            return;
+        }
+        else{
+            for(int i=0;i<pos.length();i++){
+                permutations(pre + pos.charAt(i), pos.substring(0,i)+ pos.substring(i+1,pos.length()),list);
+            }
+        }
+    }
+
+    public static void imprimirTablero(int[] tablero) {
+        int n = tablero.length;
+        System.out.print("    ");
+        for (int i = 0; i < n; ++i)
+            System.out.print(i + " ");
+        System.out.println("\n");
+        for (int i = 0; i < n; ++i) {
+            System.out.print(i + "   ");
+            for (int j = 0; j < n; ++j)
+                System.out.print((tablero[i] == j ? "Q" : "#") + " ");
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    //tomado de Soluciones taller4 (Eafit interactiva, autor desconocido) 
+    public static boolean esValido(int[] tablero) {
+        for(int i = 0; i < tablero.length; i++)
+            for(int j = i+1; j < tablero.length; j++)
+                if (tablero[i] == tablero[j] || Math.abs(tablero[i] - tablero[j]) == Math.abs(i - j))
+                    return false; 
+        return true;
+
+    }    
+
+    public static int queens(int n) {
+        ArrayList<String> algo= new ArrayList();
+        int [] arreglo= new int[n];
+        String a="";
+        int result=0;
+        for(int i=0;i<n;i++){
+            a=a+i + "";
+        }
+        permutations("",a,algo);
+
+        for(int j=0;j<algo.size();j++){
+            String numero= algo.get(j);
+            for(int h=0;h<numero.length();h++){
+                arreglo[h]=Integer.parseInt(numero.charAt(h)+"");
+            }	   
+            if(esValido(arreglo)==true){
+                result=result+1;
+                imprimirTablero(arreglo);
+            };
+
+        }   
+        return result; 
+    }
+
+    public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
+        System.out.println(queens(1));
+        long finalTime = System.currentTimeMillis()-startTime;
+        System.out.println(finalTime);
+    }
+}
