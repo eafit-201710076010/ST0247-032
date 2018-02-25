@@ -35,7 +35,7 @@ public class BackQueens
         }
 
         for (int k=0; k<casos.size();k++){
-                System.out.println("Case"+(k+1)+": "+casos.get(k));
+                System.out.println("Case "+(k+1)+": "+casos.get(k));
             
         }
 
