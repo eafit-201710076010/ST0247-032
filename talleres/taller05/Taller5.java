@@ -2,14 +2,14 @@ import java.util.ArrayList;
 
 /**
  * Clase en la cual se implementan los metodos del Taller de Clase #5
- * 
+ *
  * @author Mauricio Toro, Mateo Agudelo
  */
 public class Taller5 {
 
     public static boolean mColoring(Digraph g, int m) {
-        int colors[]=new int[m];
-        
+        int colors[]=new int[g.size()];
+    return mColoring(g, 0, colors, m);    
     }
 
     // recomendacion
@@ -21,18 +21,20 @@ public class Taller5 {
                     return false;
                 }
             }
-
         }
         return true;
     }
 
     // recomendacion
     private static boolean mColoring(Digraph g, int v, int[] colors, int m) {
-        if(isSafe(g, v, colors,))
-        if (v ==g.size())
+        if (v ==g.size()) // Condicion de parada
           return true;
-        else
-          return mColoring(g,v+1,colors,m);
+        else { // v != g.size()
+            for (int c = 0; c < m; c++)
+               if(isSafe(g, v, colors,c))
+                    return mColoring(g,v+1,colors,m);
+            return false;
+        }
     }
 
 }
