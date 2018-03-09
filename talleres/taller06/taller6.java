@@ -9,6 +9,20 @@ import java.util.Arrays;
 public class taller6
 {   
     
+        public static int[] cambioGreedy(int n, int[] denominaciones) {
+        int [] cambio = new int [denominaciones.length];
+        int ret=n;
+        for(int i=0;i<denominaciones.length;i++){
+            if(ret>=denominaciones[i]&&denominaciones[i]!=0){
+                int mon=ret/denominaciones[i];
+                cambio[i]=mon;
+                ret=ret%denominaciones[i];
+
+            }
+        }
+        return cambio;
+    }
+    
    public static int recorrido(Digraph g) {
         int v=0;
         int verticesucesor=0;
