@@ -35,6 +35,20 @@ public class Lab03 {
         }
         return false;
     }
+   
+       public static String ciclos(Digraph h){
+           
+           for(int j=0;j<h.size()-1;j++){
+        ArrayList<Integer> sucesores= h.getSuccessors(j);    
+        for(int i=0;i<sucesores.size();i++){
+        if(sucesores.get(i)==j){
+        return "Tiene ciclos";
+        }
+        }
+       
+    }  return "no tiene ciclos";
+    }
+
 
     public static void main(String[] args) {
         long startTime = System.nanoTime();
