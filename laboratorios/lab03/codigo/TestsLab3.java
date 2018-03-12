@@ -98,5 +98,10 @@ public class TestsLab3
 
         assertEquals(esp2,res2);
     }
+    
+        @Test
+    public void test1_6(){
+    
+    }
 }
 
