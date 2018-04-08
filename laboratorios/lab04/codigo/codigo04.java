@@ -7,6 +7,7 @@ import java.util.*;
  */
 public class lab04
 {
+	//Punto 1.1
     public static int AgenteViajero(Digraph g) {
         int v=0;
         int verticesucesor=0;
@@ -30,6 +31,7 @@ public class lab04
          costo=costo+ g.getWeight(verticesucesor,0);
          return costo;
   }
+	//Punto 1.2
   public static void main(String [] args){
     DigraphAL g3 = new DigraphAL(4);
 		g3.addArc(0, 0, 0);
