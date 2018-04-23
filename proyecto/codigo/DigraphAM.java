@@ -8,12 +8,19 @@ import java.util.ArrayList;
 public class DigraphAM extends Digraph {
 	// complete...
 	Float [][] matrix;
-
+        String [] inf;
 	public DigraphAM(int size) {
 		super(size);
 		// complete...
 		matrix = new Float[size][size];
+		inf= new String [size];
 	}
+	public void AddInfo(int vertex ,String info){
+	   inf[vertex]=info;
+	   }
+	   public  String getInfo(int vertex){
+	       return inf[vertex];
+	   }
 
 	public void addArc(int source, int destination, Float weight) {
 		// complete...
