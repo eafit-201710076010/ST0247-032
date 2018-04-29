@@ -1,4 +1,4 @@
-class Taller11
+class Ayuda
 {
   public static void paresOrdenados(String cadena, int size)
   {
