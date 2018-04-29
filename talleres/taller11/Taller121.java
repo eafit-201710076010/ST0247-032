@@ -4,7 +4,7 @@ import java.io.*;
 // Tomado de https://github.com/mission-peace/interview/blob/master/src/com/interview/graph/TravelingSalesmanHeldKarp.java
 //Por: Tushar Roy 
 
-public class HeldKarp{
+public class Taller11{
     public static int heldKarp(Digraph g){
         Map<Index,Integer> minCostDP = new HashMap();
         Map<Index,Integer> parent = new HashMap();
