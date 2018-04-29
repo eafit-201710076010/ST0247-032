@@ -26,7 +26,7 @@ public class Test {
 		g1.addArc(4, 1, 3);
 		g1.addArc(4, 2, 2);
 		g1.addArc(4, 3, 4);
-		if (HeldKarp.heldKarp(g1) != 10)
+		if (Taller11.heldKarp(g1) != 10)
 			return false;
 
 		DigraphAL g2 = new DigraphAL(4);
@@ -46,7 +46,7 @@ public class Test {
 		g2.addArc(1, 1, 0);
 		g2.addArc(2, 2, 0);
 		g2.addArc(3, 3, 0);
-		if (HeldKarp.heldKarp(g2) != 80)
+		if (Taller11.heldKarp(g2) != 80)
 			return false;
 
 		DigraphAL g3 = new DigraphAL(4);
@@ -66,7 +66,7 @@ public class Test {
 		g3.addArc(3, 1, 4);
 		g3.addArc(3, 2, 8);
 		g3.addArc(3, 3, 0);
-		if (HeldKarp.heldKarp(g3) != 22)
+		if (Taller11.heldKarp(g3) != 22)
 			return false;
 
 		return true;
