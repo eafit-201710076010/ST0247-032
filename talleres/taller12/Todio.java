@@ -26,8 +26,7 @@ public class Todio
 
     }
 
-    public static int []
-    taller_12(int nreinas){
+    public static int [] escalarColina(int nreinas){
         int [] arreglo= new int [nreinas];
         int papa= numeroAtaque(arreglo);
         int[] nuevo= aux(arreglo,nreinas,papa);
@@ -50,7 +49,6 @@ public class Todio
                 padre[i]=j;
                 int hijo=numeroAtaque(padre);
                 if(hijo<=papa){
-                    int a=0;
                     nuevoPadre= padre.clone();
                     papa=hijo;
                 }else{
