@@ -6,8 +6,6 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.util.ArrayList;
-
-//lee solo desde las coordenadas falta ajustar al txt original
 public class Points extends JPanel
 {
     ArrayList<Integer> xs = new ArrayList<>();
