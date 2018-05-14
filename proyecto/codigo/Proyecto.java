@@ -4,9 +4,9 @@ import java.io.*;
 class Proyecto
 
 {
-    static int [] lospri=new int[4];
-    static float [] losseg=new float[6];
 
+    static int n=0,m=0, u=0, breaks =0; 
+    static Float r=0f, speed=0f, Tmax,Smax, st_customer, Q =0f;
     private static /*ArrayList<Integer>*/void elVecinoMasCercanoParaTSP(Digraph g)
     {
         int posicionDondeEstaElDeposito = 0;
@@ -17,11 +17,12 @@ class Proyecto
     {
         FileReader fr = new FileReader(filename);
         BufferedReader lector = new BufferedReader(fr);
-        int n=0,m=0, u=0, breaks =0; 
-        Float r=0f, speed=0f, Tmax,Smax, st_customer, Q =0f;
+
         String linea1,linea; 
         linea = lector.readLine();
         String[] lineaPartida = linea.split(" ");
+        int [] lospri=new int[4];
+        float [] losseg=new float[6];
 
         for(int i=1; i<=10; i++){
             lineaPartida = linea.split(" ");
@@ -121,49 +122,77 @@ class Proyecto
 
     public static void main(String[] args) throws IOException
     {
-        Digraph g = leer("tc2c320s24cf0.txt");
+        Digraph g = leer("tc2c320s24cf4.txt");
         //Ruta route= new Ruta();
         //route.AgenteViajero(g);
 
         // ArrayList<Integer> solucion = elVecinoMasCercanoParaTSP(g);
-        System.out.println(AgenteViajero(g));
+        System.out.println(AgenteViajero(g,Tmax,speed));
     }
 
-    public static float AgenteViajero(Digraph g) {
-        float orTime;
+    public static float AgenteViajero(Digraph g,float Tmax,float speed) {
+        float orTime=0;
+        float Tback;
         int v=0;
         int de=0;//depósito
         float tiempo=0;
         float totalT=0;
+        int temp=0;
         int verticesucesor=0;
         float distanciaT=0;
         float pesosucesor=0;
         boolean[] visitados = new boolean[g.size()];
+        ArrayList<Integer> sol=new ArrayList<Integer>();
         for(int j=0;j<g.size()-1;j++){
+            int i;
+            sol.add(v);
             ArrayList<Integer> sucesores= g.getSuccessors(v);
             visitados[v] = true;
+            int ant;
             verticesucesor=-1;
             pesosucesor= Integer.MAX_VALUE;
-            for(int i=0; i<sucesores.size(); i++){
+            for( i=0; i<sucesores.size(); i++){
                 if(g.getWeight(v,sucesores.get(i))<pesosucesor && !visitados[sucesores.get(i)]){
                     verticesucesor= sucesores.get(i);
+
                     pesosucesor=g.getWeight(v,verticesucesor);
+
                 }    
+                //sol.add(i);
+
             }
             distanciaT=distanciaT+pesosucesor;
             tiempo=time(v,verticesucesor,g);
+            //orTime=time(verticesucesor,0,g);
+            //Tback=totalT+orTime;
             totalT+=tiempo;
             v=verticesucesor;
+            if(totalT>=Tmax||(totalT+time(verticesucesor,0,g))>=Tmax){
+                sol.add(de);
+                System.out.println(Arrays.toString(sol.toArray()));
+                sol=new ArrayList();
+                v=0;
+                totalT=0;
+                i--;
+            }
+
         }
+        sol.add(v);
+        sol.add(0);
+        System.out.println(Arrays.toString(sol.toArray()));
         distanciaT=distanciaT+ g.getWeight(verticesucesor,0);
-        orTime=time(de,verticesucesor,g);
-        return totalT+orTime;
+        totalT+=time(v,0,g);
+        
+        //System.out.println(verticesucesor);
+        //orTime=time(de,verticesucesor,g);
+        //System.out.println(verticesucesor);
+        return totalT;
     }
 
     public static float time(int prev, int next, Digraph g){
         float time;
         float dist=g.getWeight(prev, next);
-        float sp=losseg[1];
+        float sp=speed;
         time = dist/sp;
         return time;
     }
