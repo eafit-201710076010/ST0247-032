@@ -7,11 +7,7 @@ class Proyecto
 
     static int n=0,m=0, u=0, breaks =0; 
     static Float r=0f, speed=0f, Tmax,Smax, st_customer, Q =0f;
-    private static /*ArrayList<Integer>*/void elVecinoMasCercanoParaTSP(Digraph g)
-    {
-        int posicionDondeEstaElDeposito = 0;
-        int verticeActual = posicionDondeEstaElDeposito;
-    }  
+ 
 
     public static Digraph leer(String filename) throws IOException
     {
@@ -139,6 +135,7 @@ class Proyecto
         float totalT=0;
         int temp=0;
         int verticesucesor=0;
+        int contSC=0;
         float distanciaT=0;
         float pesosucesor=0;
         boolean[] visitados = new boolean[g.size()];
@@ -161,18 +158,26 @@ class Proyecto
                 //sol.add(i);
 
             }
+            
+            
+            if (g.getInfo(verticesucesor).contains("c"))
+                tiempo=time(v,verticesucesor,g)+st_customer;
+            else{
+                tiempo=time(v,verticesucesor,g);
+                contSC++;
+            }
+          
             distanciaT=distanciaT+pesosucesor;
-            tiempo=time(v,verticesucesor,g);
-            //orTime=time(verticesucesor,0,g);
-            //Tback=totalT+orTime;
             totalT+=tiempo;
             v=verticesucesor;
             if(totalT>=Tmax||(totalT+time(verticesucesor,0,g))>=Tmax){
                 sol.add(de);
                 System.out.println(Arrays.toString(sol.toArray()));
+                System.out.println(contSC);
                 sol=new ArrayList();
                 v=0;
                 totalT=0;
+                contSC=0;
                 i--;
             }
 
@@ -182,13 +187,9 @@ class Proyecto
         System.out.println(Arrays.toString(sol.toArray()));
         distanciaT=distanciaT+ g.getWeight(verticesucesor,0);
         totalT+=time(v,0,g);
-        
-        //System.out.println(verticesucesor);
-        //orTime=time(de,verticesucesor,g);
-        //System.out.println(verticesucesor);
+
         return totalT;
     }
-
     public static float time(int prev, int next, Digraph g){
         float time;
         float dist=g.getWeight(prev, next);
