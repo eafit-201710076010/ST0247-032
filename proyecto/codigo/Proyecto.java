@@ -87,7 +87,7 @@ class Proyecto
         linea=lector.readLine();
         linea=lector.readLine();
         linea=lector.readLine();
-        for(int i=0; i<3;i++){
+        while(linea!=null){
             //linea=lector.readLine();
             String [] losGpri = linea.split(" ");
             losLG.add(losGpri);
