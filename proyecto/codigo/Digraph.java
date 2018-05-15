@@ -6,10 +6,11 @@ import java.util.ArrayList;
  * @author Mauricio Toro, Mateo Agudelo
  */
 public abstract class Digraph {
-	protected int size;
+	protected int size,size2;
 
-	public Digraph(int vertices) {
+	public Digraph(int vertices,int vertices2) {
 		size = vertices;
+		size2=vertices2;
 	}
 
 	public abstract void addArc(int source, int destination, Float weight);

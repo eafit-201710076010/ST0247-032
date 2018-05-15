@@ -9,11 +9,11 @@ public class DigraphAM extends Digraph {
 	// complete...
 	Float [][] matrix;
         String [] inf;
-	public DigraphAM(int size) {
-		super(size);
+	public DigraphAM(int size,int size2) {
+		super(size,size2);
 		// complete...
-		matrix = new Float[size][size];
-		inf= new String [size];
+		matrix = new Float[size][size2];
+		inf= new String [size2];
 	}
 	public void AddInfo(int vertex ,String info){
 	   inf[vertex]=info;
@@ -32,9 +32,12 @@ public class DigraphAM extends Digraph {
 	public ArrayList<Integer> getSuccessors(int vertex) {
 		// complete...
 		ArrayList<Integer> s = new ArrayList<>();
-		for (int i = 0; i < size; ++i)
-			if (matrix[vertex][i] != 0)
+		for (int i = 0; i < size2; ++i) 
+		if (matrix[vertex][i] != null && matrix[vertex][i] !=0)
 				s.add(i);
+				if(vertex==74){
+				int a=0;
+				}
 		return s.size() == 0 ? null : s;
 	}
 

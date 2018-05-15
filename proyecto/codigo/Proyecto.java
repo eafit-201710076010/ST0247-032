@@ -1,14 +1,17 @@
-
 import java.util.*;
+import java.lang.*;
 import java.io.*;
 class Proyecto
 
 {
-
+    
+     
+    static double [] losLG;
     static int n=0,m=0, u=0, breaks =0; 
-    static Float r=0f, speed=0f, Tmax,Smax, st_customer, Q =0f;
- 
-
+    static Float r=0f, speed=0f, Tmax,Smax, st_customer, Q =0f, Qini =0f;
+    static Digraph g;
+    static ArrayList<Pair<Float,Float>> array= new ArrayList<Pair<Float,Float>>();
+    static Digraph gs;
     public static Digraph leer(String filename) throws IOException
     {
         FileReader fr = new FileReader(filename);
@@ -40,41 +43,54 @@ class Proyecto
         Smax=losseg[3];
         st_customer=losseg[4];
         Q=losseg[5];
-
-        Digraph g = new DigraphAM(n);
+        Qini=Q;
+        g=  new DigraphAM(m+1,m+1);
+        gs = new DigraphAM(m+1,u+1);
         Pair<Float,Float>[] arreglo = new Pair[n];
         linea=lector.readLine();
         linea=lector.readLine();
         linea=lector.readLine();
         lineaPartida = linea.split(" ");
-        for(int i=0; i<n; i++)   {
+        for(int i=0; i<n; i++)   
+         { if(lineaPartida[4].equals("c") || lineaPartida[4].equals("d")){
             arreglo[i] = new Pair(Float.parseFloat(lineaPartida[2]),Float.parseFloat(lineaPartida[3]));
-            g.AddInfo(i,lineaPartida[1]); 
+            g.AddInfo(i,lineaPartida[1]+""+lineaPartida[5]); 
             linea=lector.readLine();
             lineaPartida = linea.split(" ");
-
+        }else{
+        array.add(new Pair(Float.parseFloat(lineaPartida[2]),Float.parseFloat(lineaPartida[3])));
+        gs.AddInfo(i-321,lineaPartida[1]+lineaPartida[5]);
         }
-        for(int i=0; i<n; i++){
-            for(int j=0;j<n;j++){
+        }
+         
+        for(int i=0; i<m; i++){
+            for(int j=0;j<m;j++){
                 g.addArc(i,j,((float)Math.sqrt(
                             Math.pow(arreglo[i].first-arreglo[j].first,2) +
                             Math.pow(arreglo[i].second-arreglo[j].second,2)
                         )));
-
+               
             }
 
         }
+        for(int i=0; i<m; i++){
+            for(int j=0;j<array.size();j++){
+             gs.addArc(i,j,(float)Math.sqrt(
+                            Math.pow(arreglo[i].first-array.get(j).first,2) +
+                            Math.pow(arreglo[i].second-array.get(j).second,2)
+                        ));
+            }}
         ////////////OJO
         linea=lector.readLine();
         linea=lector.readLine();
         linea=lector.readLine();
         lineaPartida = linea.split(" ");
         ///if(lineaPartida[0].equals("l")){
-        ArrayList<String[]> losLG= new ArrayList<String[]>();
+         losLG= new double[3];
         for(int i=0; i<3;i++){
             //linea=lector.readLine();
             String [] losLpri = linea.split(" ");
-            losLG.add(losLpri);
+            losLG[i]=Double.parseDouble(losLpri[3]);
             linea=lector.readLine();
 
         }
@@ -83,12 +99,11 @@ class Proyecto
         linea=lector.readLine();
         linea=lector.readLine();
         linea=lector.readLine();
-        while(linea!=null){
+        for(int i=0;i<3;i++){
             //linea=lector.readLine();
             String [] losGpri = linea.split(" ");
-            losLG.add(losGpri);
+            losLG[i]= Double.parseDouble(losGpri[3])/losLG[i];           
             linea=lector.readLine();
-
         }
         return g;
     }
@@ -118,7 +133,7 @@ class Proyecto
 
     public static void main(String[] args) throws IOException
     {
-        Digraph g = leer("tc2c320s24cf4.txt");
+        Digraph g = leer("tc2c320s38ct0.txt");
         //Ruta route= new Ruta();
         //route.AgenteViajero(g);
 
@@ -134,6 +149,7 @@ class Proyecto
         float tiempo=0;
         float totalT=0;
         int temp=0;
+        float energ=0f;
         int verticesucesor=0;
         int contSC=0;
         float distanciaT=0;
@@ -151,18 +167,40 @@ class Proyecto
             for( i=0; i<sucesores.size(); i++){
                 if(g.getWeight(v,sucesores.get(i))<pesosucesor && !visitados[sucesores.get(i)]){
                     verticesucesor= sucesores.get(i);
-
                     pesosucesor=g.getWeight(v,verticesucesor);
-
+                    
                 }    
                 //sol.add(i);
 
             }
-            
-            
+            int a=0;
             if (g.getInfo(verticesucesor).contains("c"))
-                tiempo=time(v,verticesucesor,g)+st_customer;
-            else{
+               { tiempo=time(v,verticesucesor,g)+st_customer;
+                 energ= tiempo* r;
+                 if(Q-energ<=Q*(30/100)){
+                    ArrayList<Integer> sucesoresST= gs.getSuccessors(v);
+                    a=sucesoresST.get(0);
+                    Float pesoo= gs.getWeight(v,a); 
+                    double demora= losLG[Character.digit((g.getInfo(sucesoresST.get(0)))
+                    .charAt(g.getInfo(sucesoresST.get(0)).length()-1),10)];
+                    for(int k=1;k<sucesoresST.size(); k++){
+                     Float peso2= gs.getWeight(v,sucesoresST.get(k));
+                     double demora2= losLG[Character.digit((g.getInfo(sucesoresST.get(k))).charAt(g.getInfo(sucesoresST.get(k)).length()-1),10)];
+                    if(peso2+demora2<pesoo+demora){
+                    a=sucesoresST.get(k);
+                    pesoo=peso2;
+                    demora=demora2;
+                    }
+                    }
+                    verticesucesor=a;
+                    pesosucesor=gs.getWeight(v,verticesucesor);
+                    tiempo=(float)demora+time(v,a,gs)+st_customer;
+                    energ= tiempo* r;
+                    Q=Qini;
+                    }else{
+                    Q=Qini;
+                    }
+            }else{
                 tiempo=time(v,verticesucesor,g);
                 contSC++;
             }
