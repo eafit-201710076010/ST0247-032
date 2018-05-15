@@ -132,7 +132,7 @@ class Proyecto
 
     public static void main(String[] args) throws IOException
     {
-        Digraph g = leer("tc2c320s24cf1.txt");
+        Digraph g = leer("tc2c320s38ct4.txt");
         //Ruta route= new Ruta();
         //route.AgenteViajero(g);
 
@@ -175,10 +175,15 @@ class Proyecto
 
             }
             int a=0;
+            float enac;
+            int vant=0;
             if (g.getInfo(verticesucesor).contains("c"))
             { tiempo=time(v,verticesucesor,g)+st_customer;
                 energ= pesosucesor* r;
-                if(Q-energ<=Q*(30/100)){
+                enac=Q-energ;
+                Q=enac;
+                if(enac<=Q*(30/100)){
+                    vant=verticesucesor;
                     ArrayList<Integer> sucesoresST= gs.getSuccessors(v);
                     a=sucesoresST.get(0);
                     Float pesoo= gs.getWeight(v,a); 
@@ -193,14 +198,18 @@ class Proyecto
                             demora=demora2;
                         }
                     }
-                    verticesucesor=a;
-                    pesosucesor=gs.getWeight(v,verticesucesor);
+                    //verticesucesor=a;
+                    pesosucesor=gs.getWeight(v,a);
                     tiempo=(float)demora+time(v,a,gs)+st_customer;
                     energ= pesosucesor* r;
-                    Q=Qini;
+                    Q=Qini-enac;
+                    verticesucesor=vant;
                 }else{
-                    Q=Qini;
+                    
+                    Q=Qini-enac;
                 }
+                
+                
             }else{
                 tiempo=time(v,verticesucesor,g);
                 contSC++;
