@@ -123,7 +123,7 @@ class Proyecto
         try{
             Digraph g= leer("tc2c320s24ct1.txt");
             long startTime = System.currentTimeMillis();
-            //AgenteViajero(g);
+            AgenteViajero(g,Tmax,speed);
             estimatedTime= System.currentTimeMillis() - startTime;
 
         }catch(Exception e){}
@@ -150,7 +150,7 @@ class Proyecto
         int temp=0;
         float energ=0f;
         int verticesucesor=0;
-        int contSC=0;
+        String ans="";
         float distanciaT=0;
         float pesosucesor=0;
         int ruta=1;
@@ -160,6 +160,7 @@ class Proyecto
 
             int i;
             sol.add(v);
+            ans=ans+v+"("+(tiempo*60)+"min";
             ArrayList<Integer> sucesores= g.getSuccessors(v);
             visitados[v] = true;
             int ant;
@@ -179,6 +180,7 @@ class Proyecto
             int vant=0;
             if (g.getInfo(verticesucesor).contains("c"))
             { tiempo=time(v,verticesucesor,g)+st_customer;
+                ans+="), ";
                 energ= pesosucesor* r;
                 enac=Q-energ;
                 Q=enac;
@@ -221,14 +223,17 @@ class Proyecto
                 sol.add(de);
                 System.out.print("Ruta "+ ruta+ ": " );
                 if(!(sol.size()<=2)){
-                    System.out.print(Arrays.toString(sol.toArray()));
-                    System.out.println(" ");
+                    //System.out.print(Arrays.toString(sol.toArray()));
+                    //System.out.println(" ");
+                    System.out.print(ans);
+                    System.out.println(totalT);
                 }
 
                 sol=new ArrayList();
                 v=0;
                 ruta++;
                 totalT=0;
+                ans="";
                 
                 i--;
 
