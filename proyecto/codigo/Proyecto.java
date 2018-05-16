@@ -137,10 +137,10 @@ class Proyecto
         //route.AgenteViajero(g);
 
         // ArrayList<Integer> solucion = elVecinoMasCercanoParaTSP(g);
-        System.out.println(AgenteViajero(g,Tmax,speed));
+        AgenteViajero(g,Tmax,speed);
     }
 
-    public static float AgenteViajero(Digraph g,float Tmax,float speed) {
+    public static void AgenteViajero(Digraph g,float Tmax,float speed) {
         float orTime=0;
         float Tback;
         int v=0;
@@ -160,7 +160,7 @@ class Proyecto
 
             int i;
             sol.add(v);
-            ans=ans+v+"("+(tiempo*60)+"min";
+            ans=ans+v+"("+Math.round((tiempo*60))+"min";
             ArrayList<Integer> sucesores= g.getSuccessors(v);
             visitados[v] = true;
             int ant;
@@ -221,12 +221,13 @@ class Proyecto
             v=verticesucesor;
             if(totalT>=Tmax||(totalT+time(verticesucesor,0,g))>=Tmax){
                 sol.add(de);
+                System.out.println("");
                 System.out.print("Ruta "+ ruta+ ": " );
                 if(!(sol.size()<=2)){
                     //System.out.print(Arrays.toString(sol.toArray()));
                     //System.out.println(" ");
                     System.out.print(ans);
-                    System.out.println(totalT);
+                    
                 }
 
                 sol=new ArrayList();
@@ -250,8 +251,7 @@ class Proyecto
         }
         distanciaT=distanciaT+ g.getWeight(verticesucesor,0);
         totalT+=time(v,0,g);
-        
-        return totalT;
+                
     }
 
     public static float time(int prev, int next, Digraph g){
