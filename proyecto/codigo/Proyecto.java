@@ -121,7 +121,7 @@ class Proyecto
     public static long time2(){
         long estimatedTime=0;
         try{
-            Digraph g= leer("tc2c320s24ct4.txt");
+            Digraph g= leer("tc2c320s24ct1.txt");
             long startTime = System.currentTimeMillis();
             //AgenteViajero(g);
             estimatedTime= System.currentTimeMillis() - startTime;
@@ -132,7 +132,7 @@ class Proyecto
 
     public static void main(String[] args) throws IOException
     {
-        Digraph g = leer("tc2c320s38ct4.txt");
+        Digraph g = leer("tc2c320s24ct0.txt");
         //Ruta route= new Ruta();
         //route.AgenteViajero(g);
 
@@ -157,7 +157,7 @@ class Proyecto
         boolean[] visitados = new boolean[g.size()];
         ArrayList<Integer> sol=new ArrayList<Integer>();
         for(int j=0;j<g.size()-1;j++){
-            
+
             int i;
             sol.add(v);
             ArrayList<Integer> sucesores= g.getSuccessors(v);
@@ -205,14 +205,13 @@ class Proyecto
                     Q=Qini-enac;
                     verticesucesor=vant;
                 }else{
-                    
+
                     Q=Qini-enac;
                 }
-                
-                
+
             }else{
                 tiempo=time(v,verticesucesor,g);
-                contSC++;
+                
             }
 
             distanciaT=distanciaT+pesosucesor;
@@ -220,14 +219,17 @@ class Proyecto
             v=verticesucesor;
             if(totalT>=Tmax||(totalT+time(verticesucesor,0,g))>=Tmax){
                 sol.add(de);
-                System.out.println(Arrays.toString(sol.toArray()));
-                System.out.println(contSC);
-                System.out.println("Ruta "+ ruta);
+                System.out.print("Ruta "+ ruta+ ": " );
+                if(!(sol.size()<=2)){
+                    System.out.print(Arrays.toString(sol.toArray()));
+                    System.out.println(" ");
+                }
+
                 sol=new ArrayList();
                 v=0;
                 ruta++;
                 totalT=0;
-                contSC=0;
+                
                 i--;
 
             }
@@ -235,10 +237,15 @@ class Proyecto
         }
         sol.add(v);
         sol.add(0);
-        System.out.println(Arrays.toString(sol.toArray()));
+        if(!(sol.size()<=2)){
+            
+            System.out.print("Ruta "+ruta+": ");
+            System.out.println(Arrays.toString(sol.toArray())); 
+            
+        }
         distanciaT=distanciaT+ g.getWeight(verticesucesor,0);
         totalT+=time(v,0,g);
-        System.out.println(ruta);
+        
         return totalT;
     }
 
