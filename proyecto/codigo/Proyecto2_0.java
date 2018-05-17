@@ -1,6 +1,11 @@
 import java.util.*;
 import java.lang.*;
 import java.io.*;
+/**
+ * Implementación del algoritmo para ruteo de vehículos eléctricos
+ * @author Manuela Valencia, Laura Sánchez, Felipe Olaya
+ * 
+ */
 class Proyecto2_0
 
 {
@@ -11,6 +16,14 @@ class Proyecto2_0
     static Digraph g;
     static ArrayList<Pair<Float,Float>> array= new ArrayList<Pair<Float,Float>>();
     static Digraph gs;
+
+    /**
+     * Método para leer los datos de un archivo .txt para generar un grafo
+     * @param filename
+     *        nombre del archivo con los datos a leer
+     * @return Digraph un DigraphAM con los datos leídos 
+     * @throws IOException en caso de que no se halle el archivo
+     */
     public static Digraph leer(String filename) throws IOException
     {
         FileReader fr = new FileReader(filename);
@@ -79,15 +92,15 @@ class Proyecto2_0
                         Math.pow(arreglo[i].second-array.get(j).second,2)
                     ));
             }}
-        
+
         linea=lector.readLine();
         linea=lector.readLine();
         linea=lector.readLine();
         lineaPartida = linea.split(" ");
-        
+
         losLG= new double[3];
         for(int i=0; i<3;i++){
-           
+
             String [] losLpri = linea.split(" ");
             losLG[i]=Double.parseDouble(losLpri[3]);
             linea=lector.readLine();
@@ -98,13 +111,18 @@ class Proyecto2_0
         linea=lector.readLine();
         linea=lector.readLine();
         for(int i=0;i<3;i++){
-   
+
             String [] losGpri = linea.split(" ");
             losLG[i]= Double.parseDouble(losGpri[3])/losLG[i];           
             linea=lector.readLine();
         }
         return g;
     }
+
+    /**
+     * Método para tomar el tiempo de ejecución del algoritmo de ruteo
+     * @return long un long con el tiempo que se tarda la ejecución
+     */
 
     public static long time1(){
         long estimatedTime=0;
@@ -117,6 +135,10 @@ class Proyecto2_0
         return estimatedTime;
     }
 
+    /**
+     * Método para tomar el tiempo de ejecución del algoritmo de lectura de datos
+     * @return long un long con el tiempo que se tarda la ejecución
+     */
     public static long time2(){
         long estimatedTime=0;
         try{
@@ -131,10 +153,20 @@ class Proyecto2_0
 
     public static void main(String[] args) throws IOException
     {
-        Digraph g = leer("tc2c320s38ct4.txt");
+        Digraph g = leer("tc2c320s24cf1.txt");
 
         AgenteViajero(g,Tmax,speed);
     }
+    
+    /**
+     * Método para calcular cada todas las rutas que se deben llevar a cabo para el recorrido del grafo
+     * @param g
+     *       Grafo con los datos leídos
+     * @param Tmax
+     *        Tiempo máximo que puede durar una ruta
+     * @param speed
+     *        Velocidad que tiene el camión
+     */
 
     public static void AgenteViajero(Digraph g,float Tmax,float speed) {
 
@@ -167,7 +199,6 @@ class Proyecto2_0
                     pesosucesor=g.getWeight(v,verticesucesor);
 
                 }    
-                
 
             }
             int a=0;
@@ -208,7 +239,7 @@ class Proyecto2_0
 
             }else if(verticesucesor!=-1){
                 tiempo=time(v,verticesucesor,g);
-                
+
             }
 
             distanciaT=distanciaT+pesosucesor;
@@ -222,7 +253,7 @@ class Proyecto2_0
                 if(!(sol.size()<=2)){
 
                     System.out.print(ans);
-                    
+
                 }
 
                 sol=new ArrayList();
@@ -230,7 +261,7 @@ class Proyecto2_0
                 ruta++;
                 totalT=0;
                 ans="";
-                
+
                 j--;
 
             }
@@ -244,13 +275,25 @@ class Proyecto2_0
             System.out.print("Ruta "+ruta+": ");
             //System.out.println(Arrays.toString(sol.toArray())); 
             System.out.print(ans);
-            
+
         }
         distanciaT=distanciaT+ g.getWeight(verticesucesor,0);
         totalT+=time(v,0,g);
-               
+
     }
 
+    /**
+     * Método que calcula el tiempo que se tarda un camión de ir de un punto a otro en el grafo
+     * @param prev
+     *        vértice donde está el camión
+     * @param prev
+     *        vértice al que se quiere llegar
+     * @param g
+     *        Grafo con la información de vértices y distancias
+     * @return float un float con el valor del tiempo de dicho recorrido 
+     *         
+     *        
+     */
     public static float time(int prev, int next, Digraph g){
         float time;
         float dist=g.getWeight(prev, next);
